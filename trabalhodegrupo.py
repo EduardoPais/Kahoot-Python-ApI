@@ -1,7 +1,8 @@
-import os
+import os  
 from autenticacao import login
 from autenticacao import signup
 os.system("cls")
+
 while 1:
     print("********** Sistema Login **********")
     print("1.Signup")
@@ -20,12 +21,11 @@ while 1:
         print("Numero não valido. Tente novamente.")
 
 tipo=str(input("É professor ou aluno?"))
-
-while tipo!="professor" and "aluno" and "Professor" and "Aluno":
+while tipo.lower !="professor" and "aluno":
     tipo=str(input("Resposta não valida. Escreva novamente."))
 
-if tipo.lower() =="professor":
-    print("adeus")
+if tipo.lower =="professor":
+    print("criar ficha")
 
 else:
-    print("olá")
+    print("responder ficha")
