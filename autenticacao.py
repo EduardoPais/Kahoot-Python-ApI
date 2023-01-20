@@ -1,28 +1,91 @@
-import hashlib
+import os  
+import time
+import openpyxl
+
 
 def signup():
-    email=str(input("Digite o seu email: "))
-    senha=1
-    senha2=2
-    while senha!= senha2:
+    os.system("cls")
+    print("\n************* Signup **************")
+    email_sig=str(input("Digite o seu email: "))
+    last_char= email_sig[-1]
+    firt_char= email_sig[0]
+   #validaçao do email
+    if last_char=="@" or firt_char=="@":
+        signup()
+    elif not email_sig.__contains__("@"):
+        signup()
+    senha="a"
+    senha2="b"
+    a=0
+    b=0
+    c=0
+   #validaçao da senha
+    while len(senha)>=13 or len(senha)<=7 or senha!=senha2 or c!=1 or a!=1 or b!=1:
+        print("\nPassword tem de conter entre 8 e 12 caracteres, conter no mínimo uma maiúscula, uma minúscula e um número.")
         senha=str(input("Digite a sua senha: "))
         senha2=str(input("Digite a sua senha novamente: "))
-        if senha!= senha2:
-            print("Senha não possivel. Tente Novamente.")
-    with open("contas.txt", "w") as f:
-        f.write(email)
-        f.write("\n")
-        f.write(senha)
-    f.close()
-    print("O registo foi um sucesso.")
+        for char in senha:
+            if char.isnumeric():
+                a=1
+            if char.islower():
+                b=1
+            if char.isupper():
+                c=1
+    #guardar email e senha num ficheiro exel
+    n=1
+    x=0
+    book = openpyxl.load_workbook(r"C:\Users\andre\OneDrive\Ambiente de Trabalho\Aplicações Informáticas\Trabalho de Grupo\contas.xlsx")
+    sh = book.active
+    while x!=1:
+        cell = sh.cell(row=n,column=1)
+        cell2 = sh.cell(row=n,column=2)
+        #verifica se uma conta com o mesmo email já existe
+        if cell.value == email_sig:
+            print("Usuario já existente!")
+            time.sleep(1)
+            signup()
+        if cell.value != None:
+            n+=1
+        else:
+            cell.value=email_sig
+            cell2.value=senha
+            x=1
+    book.save(r"C:\Users\andre\OneDrive\Ambiente de Trabalho\Aplicações Informáticas\Trabalho de Grupo\contas.xlsx")
+    print("\nO registo foi um sucesso.")
+    time.sleep(1)
 
 def login():
-    email = input("Digite o seu email: ")
-    pwd = input("Digite a sua senha: ")
-    with open("contas.txt", "r") as f:
-        stored_email, stored_pwd = f.read().split("\n")
-    f.close()
-    if email == stored_email and pwd == stored_pwd:
-        print("Login com sucesso!")
+    os.system("cls")
+    print("\n************* Login **************")
+    n2=1
+    x2=0
+    global email_log
+    email_log=str(input("Digite o seu email: "))
+    book = openpyxl.load_workbook(r"C:\Users\andre\OneDrive\Ambiente de Trabalho\Aplicações Informáticas\Trabalho de Grupo\contas.xlsx")
+    sh = book.active
+    while x2!=1:
+        cell = sh.cell(row=n2,column=1)
+        cell2 = sh.cell(row=n2,column=2)
+        #procura o email
+        if cell.value == email_log:
+            x2=1  
+        if cell.value == None:
+            print("\nConta não existente!")
+            x2=1
+            time.sleep(1)
+            signup()
+        else:
+            n2+=1
+    #passa se o email existir
+    n2-=1
+    senha=str(input("Digite a sua senha: "))
+    cell2 = sh.cell(row=n2,column=2)
+    #verifica se a senha coincide
+    if cell2.value==senha:
+        print("\nLogin com sucesso!")
+        time.sleep(1)
     else:
-        print("Login não foi possivel!")
+        print("\nLogin não foi possivel!")
+        time.sleep(1)
+        login()
+    book.save(r"C:\Users\andre\OneDrive\Ambiente de Trabalho\Aplicações Informáticas\Trabalho de Grupo\contas.xlsx")
