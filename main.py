@@ -5,13 +5,12 @@ from questionarios import criar
 from questionarios import responder
 from podio import podio
 from podio import lista_testes
-
+os.system('TASKKILL /F /IM excel.exe')
 while 1:
     os.system("cls")
     print("********** Sistema Login **********")
     print("1.Signup\n2.Login\n3.Exit")
     ch = int(input("Digite o que pretende fazer: "))
-    #escolhe uma das funçoes e valida a resposta
     if ch == 1:
         signup()
         login()
@@ -25,9 +24,6 @@ while 1:
         exit()
     else:
         print("Numero não valido. Tente novamente. ")
-
-
-
 while 1:
     os.system("cls")
     print("***********Menu***********\n1.Criar\n2.Responder\n3.Podio\n4.Testes\n5.Exit")

@@ -34,7 +34,7 @@ def signup():
     #guardar email e senha num ficheiro exel
     n=1
     x=0
-    book = openpyxl.load_workbook(r"C:\Users\andre\OneDrive\Ambiente de Trabalho\Aplicações Informáticas\Trabalho de Grupo\contas.xlsx")
+    book = openpyxl.load_workbook(r"contas.xlsx")
     sh = book.active
     while x!=1:
         cell = sh.cell(row=n,column=1)
@@ -50,7 +50,7 @@ def signup():
             cell.value=email_sig
             cell2.value=senha
             x=1
-    book.save(r"C:\Users\andre\OneDrive\Ambiente de Trabalho\Aplicações Informáticas\Trabalho de Grupo\contas.xlsx")
+    book.save(r"contas.xlsx")
     print("\nO registo foi um sucesso.")
     time.sleep(1)
 
@@ -61,7 +61,7 @@ def login():
     x2=0
     global email_log
     email_log=str(input("Digite o seu email: "))
-    book = openpyxl.load_workbook(r"C:\Users\andre\OneDrive\Ambiente de Trabalho\Aplicações Informáticas\Trabalho de Grupo\contas.xlsx")
+    book = openpyxl.load_workbook(r"contas.xlsx")
     sh = book.active
     while x2!=1:
         cell = sh.cell(row=n2,column=1)
@@ -88,4 +88,4 @@ def login():
         print("\nLogin não foi possivel!")
         time.sleep(1)
         login()
-    book.save(r"C:\Users\andre\OneDrive\Ambiente de Trabalho\Aplicações Informáticas\Trabalho de Grupo\contas.xlsx")
+    book.save(r"contas.xlsx")

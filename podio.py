@@ -36,6 +36,7 @@ def podio():
             print("\nAinda ninguem respondeu a este teste!")
             time.sleep(1)
             b=1
+            return
         elif cell.value == None:
             b=1
         elif cell.value>primeiro:
