@@ -2,7 +2,11 @@ import os
 import time
 import openpyxl
 import msvcrt as m
-
+reiniciar = '\033[0m'
+vermelho = '\033[31m'
+verde = '\033[32m'
+laranja = '\033[33m'
+azul = '\033[34m' 
 def podio():
     sair=0
     a=0
@@ -33,7 +37,7 @@ def podio():
         cell2=page.cell(row=2,column=2)
         cell3=page.cell(row=c,column=1)
         if cell2.value==None:
-            print("\nAinda ninguem respondeu a este teste!")
+            print(vermelho+"\nAinda ninguem respondeu a este teste!"+reiniciar)
             time.sleep(1)
             b=1
             return
@@ -65,13 +69,13 @@ def podio():
             terceiro=cell.value
             terceiro_nome=cell3.value
         c+=1
-    print("\n**********Podio**********\n1º-",primeiro_nome,"-",primeiro,"\n2º-",segundo_nome,"-",segundo,"\n3º-",terceiro_nome,"-",terceiro)
+    print(azul+"\n**********Podio**********"+reiniciar+"\n1º-",primeiro_nome,"-",primeiro,"\n2º-",segundo_nome,"-",segundo,"\n3º-",terceiro_nome,"-",terceiro)
     print("\nClique em qualquer tecla para continuar!")
     m.getch()
 
 def lista_testes():
     os.system("cls")
-    print("***********Testes***********")
+    print(azul+"***********Testes***********"+reiniciar)
     book = openpyxl.load_workbook("questionarios.xlsx")
     print(book.sheetnames)
     print("\nClique em qualquer tecla para continuar!")

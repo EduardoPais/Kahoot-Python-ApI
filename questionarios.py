@@ -1,7 +1,11 @@
 import openpyxl
 import os
 import time
-
+reiniciar = '\033[0m'
+vermelho = '\033[31m'
+verde = '\033[32m'
+laranja = '\033[33m'
+azul = '\033[34m' 
 def criar():
     from autenticacao import email_log
     book = openpyxl.load_workbook("questionarios.xlsx")
@@ -13,12 +17,12 @@ def criar():
     g=0
     while g!=1:
         os.system("cls")
-        print("\n*******Modo Criação*******")
+        print(azul+"\n*******Modo Criação*******"+reiniciar)
         nome=input("\nDigite nome para o teste: ")
         if nome in book.sheetnames:
-            print("Já existe um teste com este nome!")
+            print(vermelho+"Já existe um teste com este nome!"+reiniciar)
         elif nome.lower() =="sair":
-            print("Nome não premitido!")
+            print(vermelho+"Nome não premitido!"+reiniciar)
         else:
             book.create_sheet(nome)
             page = book[nome]
@@ -35,7 +39,7 @@ def criar():
         VF=int(input("\nDigite o numero de perguntas (maximo 10) de verdadeiro ou falso que quer: "))
         EM=int(input("\nDigite o numero de perguntas (maximo 10) de escolha multipla que quer: "))
         if VF==0 and EM==0:
-            print("Tem de ter pelo menos uma pergunta!")
+            print(vermelho+"Tem de ter pelo menos uma pergunta!"+reiniciar)
         elif 0<=VF<=10 and 0<=EM<=10:
             a=1
     cell2=page.cell(row=z,column=1)
@@ -51,7 +55,7 @@ def criar():
         res=input("\nResposta: ")
         f=0
         if res.lower() != "v" and res.lower() != "f" and res.lower() != "verdadeiro" and res.lower() != "falso" and cell2.value==None:
-            print("Resposta invalida!\n")
+            print(vermelho+"Resposta invalida!\n"+reiniciar)
             z-=1
             b-=1
             f=1
@@ -60,7 +64,7 @@ def criar():
         if res.lower() == "f" or res.lower() == "falso":
             cell3.value="f"
         while f !=1:
-            cont=input("\nEstá todo bem escrito:\nSim-continuas\nNão-refazer\n")
+            cont=input("\nEstá todo bem escrito:\n"+verde+"Sim-continuas\n"+vermelho+"Não-refazer\n"+reiniciar)
             if cont.lower()=="não" or cont.lower()=="nao":
                 z-=1
                 b-=1
@@ -68,7 +72,7 @@ def criar():
             elif cont.lower() == "sim":
                 f=1
             else:
-                print("\nRespoata invalida!")
+                print(vermelho+"\nRespoata invalida!"+reiniciar)
         z+=1
         b+=1
     if EM!=0:
@@ -83,7 +87,7 @@ def criar():
         cell3.value=input("\nResposta: ")
         d=1
         if cell3.value.lower() != "a" and cell3.value.lower() != "b" and cell3.value.lower() != "c" and cell3.value.lower() != "d":
-            print("\nResposta invalida!\n")
+            print(vermelho+"\nResposta invalida!\n"+reiniciar)
             c-=1
             b-=1
             d=6
@@ -102,7 +106,7 @@ def criar():
             d+=1
             e+=1
         while d!=6:
-            cont=input("\nEstá todo bem escrito:\nSim-continuas\nNão-refazer\n")    
+            cont=input("\nEstá todo bem escrito:\n"+verde+"Sim-continuas\n"+vermelho+"Não-refazer\n"+reiniciar)    
             if cont.lower()=="não" or cont.lower()=="nao":
                 c-=1
                 b-=1
@@ -110,7 +114,7 @@ def criar():
             elif cont.lower() == "sim":
                 d=6
             else:
-                print("\nRespoata invalida!")
+                print(vermelho+"\nRespoata invalida!"+reiniciar)
         c+=1
         b+=1
     print("Nome do questionário:",nome)
@@ -134,7 +138,7 @@ def responder():
     while a != 1:
         time.sleep(1)
         os.system("cls")
-        print("*******Modo Responder*******")
+        print(azul+"*******Modo Responder*******"+reiniciar)
         x=0
         if sair == 1:
             print("\nDigite sair se quiser cancelar: ")
@@ -150,13 +154,13 @@ def responder():
                 cell = page2.cell(row=b,column=1)
                 cell6=page2.cell(row=1,column=1)
                 if cell6.value==email_log:
-                    print("\nNão podes responder a um teste que criaste!")
+                    print(vermelho+"\nNão podes responder a um teste que criaste!"+reiniciar)
                     time.sleep(1)
                     x=1
                     a=0
                     sair=1
                 elif cell.value == email_log:
-                    print("\nEste teste já foi preenchido!")
+                    print(vermelho+"\nEste teste já foi preenchido!"+reiniciar)
                     time.sleep(1)
                     x=1
                     a=0
@@ -169,7 +173,7 @@ def responder():
                     print("\nEntrada foi um sucesso!")
                     time.sleep(1)
         else:
-            print("\nTeste não existe!")
+            print(vermelho+"\nTeste não existe!"+reiniciar)
             sair=1
             time.sleep(1)
     cell2=page2.cell(row=b,column=2)
@@ -178,7 +182,7 @@ def responder():
         d=1
     else:
         os.system("cls")
-        print("\n***Perguntas de Verdadeiro ou Falso***")
+        print(azul+"\n***Perguntas de Verdadeiro ou Falso***"+reiniciar)
     while d!=1:
         pontos_desponiveis=1
         h=3
@@ -191,7 +195,7 @@ def responder():
         t = time.time()
         resposta= input("R: ")
         if resposta.lower() != "v" and resposta.lower() != "f" and resposta.lower() != "verdadeiro" and resposta.lower() != "falso":
-            print("\nResposta invalida!")
+            print(vermelho+"\nResposta invalida!"+reiniciar)
         else:
             c+=1
             if resposta.lower() == "verdadeiro":
@@ -216,7 +220,7 @@ def responder():
         d=1
     else:
         os.system("cls")
-        print("\n***Perguntas de Escolha Multipla***")
+        print(azul+"\n***Perguntas de Escolha Multipla***"+reiniciar)
     while d!=1:
         pontos_desponiveis=1
         h=4
@@ -243,7 +247,7 @@ def responder():
         t = time.time() 
         resposta= input("R: ")
         if resposta.lower() != "a" and resposta.lower() != "b" and resposta.lower() != "c" and resposta.lower() != "d":
-            print("\nResposta invalida!")
+            print(vermelho+"\nResposta invalida!"+reiniciar)
         else:
             c+=1
             if resposta.lower() == cell4.value.lower():
@@ -259,6 +263,6 @@ def responder():
                 pontos+=(round(pontos_desponiveis,1))
         total+=1
     cell2.value=pontos
-    print("\n*****Resultado*****\n",cell2.value,"de",total)
+    print(azul+"\n*****Resultado*****\n"+reiniciar,cell2.value,"de",total)
     book2.save("respostas.xlsx")
     time.sleep(3)      

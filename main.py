@@ -6,11 +6,19 @@ from questionarios import responder
 from podio import podio
 from podio import lista_testes
 os.system('TASKKILL /F /IM excel.exe')
+reiniciar = '\033[0m'
+vermelho = '\033[31m'
+verde = '\033[32m'
+laranja = '\033[33m'
+azul = '\033[34m'   
 while 1:
     os.system("cls")
-    print("********** Sistema Login **********")
-    print("1.Signup\n2.Login\n3.Exit")
-    ch = int(input("Digite o que pretende fazer: "))
+    print(azul+"********** Sistema Login **********"+reiniciar)
+    print("1.Signup\n2.Login\n"+vermelho+"3.Exit"+reiniciar)
+    ch=input("Digite o que pretende fazer: ")
+    if  not ch.isnumeric():
+        os.system("python main.py")
+    ch = int(ch)
     if ch == 1:
         signup()
         login()
@@ -20,13 +28,13 @@ while 1:
         break
     elif ch == 3:
         os.system("cls")
-        print("*********Saiu*********")
+        print(vermelho+"*********Saiu*********"+reiniciar)
         exit()
     else:
-        print("Numero não valido. Tente novamente. ")
+        print(vermelho+"Numero não valido. Tente novamente."+reiniciar)
 while 1:
     os.system("cls")
-    print("***********Menu***********\n1.Criar\n2.Responder\n3.Podio\n4.Testes\n5.Exit")
+    print(azul+"***********Menu***********"+reiniciar+"\n1.Criar\n2.Responder\n3.Podio\n4.Testes\n"+vermelho+"5.Exit"+reiniciar)
     tipo=int(input("Digite o que pretende fazer: "))
 
     if tipo ==1:
@@ -39,7 +47,7 @@ while 1:
         lista_testes()
     elif tipo ==5:
         os.system("cls")
-        print("*********Saiu*********")
+        print(vermelho+"*********Saiu*********"+reiniciar)
         exit()
     else:
-        print("Numero não valido. Tente novamente. ")
+        print(vermelho+"Numero não valido. Tente novamente."+reiniciar)
