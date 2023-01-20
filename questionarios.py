@@ -21,7 +21,7 @@ def criar():
         nome=input("\nDigite nome para o teste: ")
         if nome in book.sheetnames:
             print(vermelho+"Já existe um teste com este nome!"+reiniciar)
-        elif nome.lower() =="sair":
+        elif nome.lower() =="sair" or nome=="":
             print(vermelho+"Nome não premitido!"+reiniciar)
         else:
             book.create_sheet(nome)
@@ -36,12 +36,16 @@ def criar():
             g=1
     while a!=1:
         os.system("cls")
-        VF=int(input("\nDigite o numero de perguntas (maximo 10) de verdadeiro ou falso que quer: "))
-        EM=int(input("\nDigite o numero de perguntas (maximo 10) de escolha multipla que quer: "))
-        if VF==0 and EM==0:
-            print(vermelho+"Tem de ter pelo menos uma pergunta!"+reiniciar)
-        elif 0<=VF<=10 and 0<=EM<=10:
-            a=1
+
+        VF=(input("\nDigite o numero de perguntas (maximo 10) de verdadeiro ou falso que quer: "))
+        EM=(input("\nDigite o numero de perguntas (maximo 10) de escolha multipla que quer: "))
+        if VF.isnumeric() and EM.isnumeric():
+            VF=int(VF)
+            EM=int(EM)
+            if VF==0 and EM==0:
+                print(vermelho+"Tem de ter pelo menos uma pergunta!"+reiniciar)
+            elif 0<=VF<=10 and 0<=EM<=10:
+                a=1
     cell2=page.cell(row=z,column=1)
     cell3=page.cell(row=z,column=2)
     if VF!=0:
@@ -51,30 +55,33 @@ def criar():
         cell2=page.cell(row=z,column=1)
         cell3=page.cell(row=z,column=2)
         print(b,"º-",end="")
-        cell2.value=input("Pergunta: ")
+        pergunta=input("Pergunta: ")
         res=input("\nResposta: ")
-        f=0
-        if res.lower() != "v" and res.lower() != "f" and res.lower() != "verdadeiro" and res.lower() != "falso" and cell2.value==None:
-            print(vermelho+"Resposta invalida!\n"+reiniciar)
-            z-=1
-            b-=1
-            f=1
-        if res.lower() == "v" or res.lower() == "verdadeiro":
-            cell3.value="v"
-        if res.lower() == "f" or res.lower() == "falso":
-            cell3.value="f"
-        while f !=1:
-            cont=input("\nEstá todo bem escrito:\n"+verde+"Sim-continuas\n"+vermelho+"Não-refazer\n"+reiniciar)
-            if cont.lower()=="não" or cont.lower()=="nao":
+        if pergunta!=""and res!="":
+            cell2.value=pergunta
+            
+            f=0
+            if res.lower() != "v" and res.lower() != "f" and res.lower() != "verdadeiro" and res.lower() != "falso" and cell2.value==None:
+                print(vermelho+"Resposta invalida!\n"+reiniciar)
                 z-=1
                 b-=1
                 f=1
-            elif cont.lower() == "sim":
-                f=1
-            else:
-                print(vermelho+"\nRespoata invalida!"+reiniciar)
-        z+=1
-        b+=1
+            if res.lower() == "v" or res.lower() == "verdadeiro":
+                cell3.value="v"
+            if res.lower() == "f" or res.lower() == "falso":
+                cell3.value="f"
+            while f !=1:
+                cont=input("\nEstá todo bem escrito:\n"+verde+"Sim-continuas\n"+vermelho+"Não-refazer\n"+reiniciar)
+                if cont.lower()=="não" or cont.lower()=="nao":
+                    z-=1
+                    b-=1
+                    f=1
+                elif cont.lower() == "sim":
+                    f=1
+                else:
+                    print(vermelho+"\nRespoata invalida!"+reiniciar)
+            z+=1
+            b+=1
     if EM!=0:
         os.system("cls")
         print("\nPerguntas de Escolha Multipla:\n")
@@ -195,6 +202,7 @@ def responder():
         t = time.time()
         resposta= input("R: ")
         if resposta.lower() != "v" and resposta.lower() != "f" and resposta.lower() != "verdadeiro" and resposta.lower() != "falso":
+            os.system("cls")
             print(vermelho+"\nResposta invalida!"+reiniciar)
         else:
             c+=1
@@ -247,6 +255,7 @@ def responder():
         t = time.time() 
         resposta= input("R: ")
         if resposta.lower() != "a" and resposta.lower() != "b" and resposta.lower() != "c" and resposta.lower() != "d":
+            os.system("cls")
             print(vermelho+"\nResposta invalida!"+reiniciar)
         else:
             c+=1

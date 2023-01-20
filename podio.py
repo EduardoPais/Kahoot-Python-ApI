@@ -29,7 +29,7 @@ def podio():
             page=book[resposta]
             a=1
         else:
-            print("\nTeste não existe!")
+            print(vermelho+"\nTeste não existe!"+reiniciar)
             sair=1
             time.sleep(1)
     while b!=1:
