@@ -5,7 +5,6 @@ import msvcrt as m
 reiniciar = '\033[0m'
 vermelho = '\033[31m'
 verde = '\033[32m'
-laranja = '\033[33m'
 azul = '\033[34m' 
 def podio():
     sair=0

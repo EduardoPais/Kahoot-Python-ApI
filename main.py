@@ -6,17 +6,19 @@ from questionarios import responder
 from podio import podio
 from podio import lista_testes
 import time
-os.system('TASKKILL /F /IM excel.exe')
+
 reiniciar = '\033[0m'
 vermelho = '\033[31m'
 verde = '\033[32m'
-laranja = '\033[33m'
-azul = '\033[34m'   
+azul = '\033[34m'
+
 while 1:
+    
     os.system("cls")
     print(azul+"********** Sistema Login **********"+reiniciar)
     print("1.Signup\n2.Login\n"+vermelho+"3.Exit"+reiniciar)
     ch=input("Digite o que pretende fazer: ")
+    
     if  ch.isnumeric():
         ch = int(ch)        
         if ch == 1:
@@ -30,7 +32,7 @@ while 1:
             os.system("cls")
             print(vermelho+"*********Saiu*********"+reiniciar)
             time.sleep(2)
-            exit()    
+            exit()
     else:
         print(vermelho+"Numero não valido. Tente novamente."+reiniciar)
 while 1:

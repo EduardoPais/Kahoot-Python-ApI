@@ -1,10 +1,10 @@
 import openpyxl
 import os
 import time
+import math
 reiniciar = '\033[0m'
 vermelho = '\033[31m'
 verde = '\033[32m'
-laranja = '\033[33m'
 azul = '\033[34m' 
 def criar():
     from autenticacao import email_log
@@ -19,21 +19,31 @@ def criar():
         os.system("cls")
         print(azul+"\n*******Modo Criação*******"+reiniciar)
         nome=input("\nDigite nome para o teste: ")
+
+          
         if nome in book.sheetnames:
             print(vermelho+"Já existe um teste com este nome!"+reiniciar)
-        elif nome.lower() =="sair" or nome=="":
+            time.sleep(1)
+        elif nome.lower() =="sair" or nome=="" or nome.isspace():
             print(vermelho+"Nome não premitido!"+reiniciar)
-        else:
-            book.create_sheet(nome)
-            page = book[nome]
-            book2 = openpyxl.load_workbook("respostas.xlsx")
-            book2.create_sheet(nome)
-            page2 = book2[nome]
-            cell5 = page2.cell(row=1,column=1)
-            cell5.value=email_log
-            cell5 = page2.cell(row=1,column=2)
-            cell5.value="criador"
-            g=1
+            time.sleep(1)
+        elif nome!="":
+            last_char= nome[-1]
+            firt_char= nome[0]  
+            if last_char==" " or firt_char==" ":
+                print(vermelho+"Nome não premitido!"+reiniciar)
+                time.sleep(1)
+            else:
+                book.create_sheet(nome)
+                page = book[nome]
+                book2 = openpyxl.load_workbook("respostas.xlsx")
+                book2.create_sheet(nome)
+                page2 = book2[nome]
+                cell5 = page2.cell(row=1,column=1)
+                cell5.value=email_log
+                cell5 = page2.cell(row=1,column=2)
+                cell5.value="criador"
+                g=1
     while a!=1:
         os.system("cls")
 
@@ -50,8 +60,8 @@ def criar():
     cell3=page.cell(row=z,column=2)
     if VF!=0:
         os.system("cls")
-        print("\nPerguntas de Verdadeiro ou Falso:\n")
     while z<=VF:
+        print("\nPerguntas de Verdadeiro ou Falso:\n")
         cell2=page.cell(row=z,column=1)
         cell3=page.cell(row=z,column=2)
         print(b,"º-",end="")
@@ -76,17 +86,19 @@ def criar():
                     z-=1
                     b-=1
                     f=1
+                    os.system("cls")
                 elif cont.lower() == "sim":
                     f=1
+                    os.system("cls")
                 else:
                     print(vermelho+"\nRespoata invalida!"+reiniciar)
             z+=1
             b+=1
     if EM!=0:
         os.system("cls")
-        print("\nPerguntas de Escolha Multipla:\n")
     b=1
     while c<=EM:
+        print("\nPerguntas de Escolha Multipla:\n")
         cell2=page.cell(row=z+c,column=1)
         cell3=page.cell(row=z+c,column=2)
         print(b,"º-",end="")
@@ -118,8 +130,10 @@ def criar():
                 c-=1
                 b-=1
                 d=6
+                os.system("cls")
             elif cont.lower() == "sim":
                 d=6
+                os.system("cls")
             else:
                 print(vermelho+"\nRespoata invalida!"+reiniciar)
         c+=1
@@ -219,7 +233,7 @@ def responder():
                     t3 = t+h
                 if pontos_desponiveis<0:
                     pontos_desponiveis=0
-                pontos+=(round(pontos_desponiveis,1))
+                pontos+=(math.ceil(pontos_desponiveis))
             total+=1
     c+=1
     d=0
@@ -269,7 +283,7 @@ def responder():
 
                 if pontos_desponiveis<0:
                     pontos_desponiveis=0
-                pontos+=(round(pontos_desponiveis,1))
+                pontos+=(math.ceil(pontos_desponiveis))
         total+=1
     cell2.value=pontos
     print(azul+"\n*****Resultado*****\n"+reiniciar,cell2.value,"de",total)
